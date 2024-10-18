@@ -1,0 +1,10 @@
+export const CREATE_ROOM:string = "CREATE_ROOM";   
+export const JOIN_ROOM:string = "JOIN_ROOM";
+export const LEAVE_ROOM:string = "LEAVE_ROOM";
+export const ROOM_CREATED:string = "ROOM_CREATED";
+export const ROOM_JOINED:string = "ROOM_JOINED";
+export const ROOM_LEFT:string = "ROOM_LEFT";
+export const ROOM_FULL:string = "ROOM_FULL";
+export const ROOM_NOT_FOUND:string = "ROOM_NOT_FOUND";
+export const PASSWORD_REQUIRED:string = "PASSWORD_REQUIRED";
+export const WRONG_PASSWORD:string = "WRONG_PASSWORD";  
