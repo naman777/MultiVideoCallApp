@@ -39,7 +39,7 @@ export class Room {
   addUser(userDetails: JoinRoomDetails) {
     if (this.isPasswordRequired && this.password !== userDetails.password) {
       userDetails.socket.send(
-        JSON.stringify({ PASSWORD_REQUIRED: true, WRONG_PASSWORD: true })
+        JSON.stringify({ PASSWORD_REQUIRED: true, WRONG_PASSWORD: true, ROOM_JOINED: false })
       );
       return;
     } else {

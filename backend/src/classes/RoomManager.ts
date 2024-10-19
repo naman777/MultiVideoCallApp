@@ -1,7 +1,9 @@
 import {
+  CHECK_ROOM,
   CREATE_ROOM,
   JOIN_ROOM,
   PASSWORD_REQUIRED,
+  ROOM_NOT_FOUND,
 } from "../constants/messages";
 import {
   CreateRoomDetails,
@@ -25,6 +27,8 @@ export class RoomManager {
       this.createRoom(message);
     } else if (message.type === JOIN_ROOM) {
       this.joinRoom(message);
+    } else if (message.type === CHECK_ROOM) {
+      this.checkRoomPassword(message);
     }
   }
 
@@ -39,21 +43,32 @@ export class RoomManager {
   }
 
   checkRoomPassword(payload: JoinRoomDetails) {
-    const room = this.Rooms.find((room) => room.getRoomId() === payload.roomId);
+    //@ts-ignore
+    const roomId = parseInt(payload.roomId);  
+    const room = this.Rooms.find((room) => room.getRoomId() === roomId);
 
     if (room) {
       const isPasswordRequired = room.getIsPasswordRequired();
       payload.socket.send(
-        JSON.stringify({ PASSWORD_REQUIRED: isPasswordRequired })
+        JSON.stringify({
+          PASSWORD_REQUIRED: isPasswordRequired,
+          ROOM_NOT_FOUND: false,
+        })
       );
+    } else {
+      payload.socket.send(JSON.stringify({ ROOM_NOT_FOUND: true }));
     }
   }
 
   joinRoom(payload: JoinRoomDetails) {
-    const room = this.Rooms.find((room) => room.getRoomId() === payload.roomId);
+    //@ts-ignore
+    const room = this.Rooms.find((room) => room.getRoomId() === parseInt(payload.roomId));
 
     if (room) {
       room.addUser(payload);
+    }
+    else{
+      payload.socket.send(JSON.stringify({ ROOM_NOT_FOUND: true }));
     }
   }
 }
