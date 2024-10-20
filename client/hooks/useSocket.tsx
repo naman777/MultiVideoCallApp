@@ -1,5 +1,4 @@
 "use client";
-import { BACKEND_URL } from '@/constants/links';
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 const WebSocketContext = createContext<{ socket: WebSocket | null, isConnected: boolean }>({ socket: null, isConnected: false });
@@ -7,6 +6,9 @@ const WebSocketContext = createContext<{ socket: WebSocket | null, isConnected: 
 interface WebSocketProviderProps {
     children: ReactNode;
 }
+
+const BACKEND_URL = process.env.BACKEND_URL || "ws://localhost:8080";
+
 
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
     const [socket, setSocket] = useState<WebSocket | null>(null);``

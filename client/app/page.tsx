@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import CreateRoomModal from "@/components/common/CreateRoomModal";
 import JoinRoomModal from "@/components/common/JoinRoomModal";
 
+
 export default function Home() {
   const { socket, isConnected } = useWebSocket();
   const router = useRouter();
